@@ -1,14 +1,13 @@
 import React from 'react';
 import style from './MyButton.module.css'
 
-export const Mybutton = (props) => {
+export const MyButton = ({children, ...props}) => {
 
 return (
-    <button className={style.myBtn}>
-        Create pos
-        {/* {props.children} */}
+    <button {...props} className={style.myBtn}>
+        {children}
 </button>
 )
 };
 
-export default Mybutton;
+export default MyButton;
