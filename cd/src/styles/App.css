@@ -21,16 +21,39 @@
     justify-content: space-between;
     align-items: center;
 }
+.remove-btn {
+    margin-right: 0.5rem;
+}
 .btn {
     padding: 5px 10px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    
+    background-color: red;
+        color: #FFF;
+    opacity: 0.3;
+        transition: opacity 0.3s;
 }
 
 .btn:hover {
-    background-color: teal;
-    color: #FFF;
-    
+   opacity: 1;
+   
+}
+
+.post-enter {
+    transform: translateX(350px);
+}
+
+.post-enter-active {
+    transform: translateX(0px);
+    transition: all 500ms ease-in;
+}
+
+.post-exit {
+    opacity: 1;
+}
+
+.post-exit-active {
+    transform: translateX(-350px);
+    transition: all 500ms ease-in;
 }

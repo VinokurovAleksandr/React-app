@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
  const PostItem = (props) => {
     return (
@@ -14,7 +14,7 @@ import React from 'react'
           <button
             onClick={() => props.remove(props.post)}
             className='btn'>Delete</button>
-          </div>
+        </div>
       </div>
     )
 }
