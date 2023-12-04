@@ -1,4 +1,5 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Counter } from './components/Counter';
 import ClassCounter from './components/ClassCounter';
 import moduleName from './components/PostItem'
@@ -10,16 +11,20 @@ import PostForm from './components/PostForm';
 import MySelect from './components/UI/select/MySelect';
 import PostFilter from './components/PostFilter';
 import MyModal from './components/UI/MyModal/MyModal';
+import { usePosts } from './components/hooks/usePosts';
 import './styles/App.css'
+import PostService from './components/API/PostService';
 
 
 function App() {
 
-  const [posts, setPosts] = useState([
-    { id: 1, title: 'Javascript', body: 'Description' },
-    { id: 2, title: 'React', body: 'Fuu' },
-    { id: 3, title: 'HTML', body: 'Description' }
-  ]);
+  const [posts, setPosts] = useState([]);
+
+  // [
+  //   { id: 1, title: 'Javascript', body: 'Description' },
+  //   { id: 2, title: 'React', body: 'Fuu' },
+  //   { id: 3, title: 'HTML', body: 'Description' }
+  // ]
 
 
   const [filter, setFilter] = useState(
@@ -27,20 +32,15 @@ function App() {
       sort: '',
       query: ''
     });
-    const [modal, setModal] = useState()
+  const [modal, setModal] = useState(false);
+  const soretedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
+  const [isLoading, setIsLoading] = useState(false)
 
-  const sortedPosts = useMemo(() => {
-    if (filter.sort) {
-      return [...posts].sort((a, b) =>
-    a[filter.sort].localeCompare(b[filter.sort]))
-    }
-    return posts;
-  }, [filter.sort, posts]);
 
-  const soretedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()))
-  },[filter.query, sortedPosts])
-   
+  useEffect(() => {
+      fetchPosps()
+    },[])
+
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
     setModal(false)
@@ -50,10 +50,21 @@ function App() {
     setPosts(posts.filter(p => p.id !== post.id))
   };
 
+  async function fetchPosps() {
+    setIsLoading(true)
+    const posts = await PostService.getAll();
+    setPosts(posts)
+    setIsLoading(false)
+  
+  };
+
+
+
 
   return (
     
     <div className='App'>
+      <button onClick={fetchPosps}>Click</button>
       <MyButton style={{marginTop: '15px'}} onClick={() => setModal(true)}>
         Registration post
       </MyButton>
@@ -66,11 +77,13 @@ function App() {
         filter={filter}
         setFilter={setFilter}
       />
-
-      <PostsList
+      {isLoading ? <h3>Loading...</h3> : <PostsList
         remove={removePost}
         posts={soretedAndSearchedPosts}
         title={'Post about JS'} />
+      } 
+       
+    
       </div>
   );
 }
