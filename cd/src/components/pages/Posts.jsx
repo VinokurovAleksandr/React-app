@@ -12,11 +12,11 @@ import PostForm from '../PostForm';
 import PostFilter from '../PostFilter';
 import MyModal from '../UI/MyModal/MyModal';
 import { usePosts } from '../hooks/usePosts';
-import '../../styles/App.css'
+import '../../App'
 import PostService from '../API/PostService';
 import Loader from '../UI/Loader/Loader';
 import { useFetching } from '../hooks/useFetching';
-import { getPageCount, getPagesArray } from '../utils/pages';
+import { getPageCount, getPagesArray } from '../../utils/pages';
 import Pagination from '../UI/pagination/Pagination';
 
 
