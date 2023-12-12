@@ -11,7 +11,7 @@ import { AuthContext } from '../context';
 export const AppRouter = () => {
     // const isAuth = true;
 
-    const {isAuth, setIsAuth } = useContext(AuthContext)
+    const {isAuth } = useContext(AuthContext)
     
     return (
         isAuth 
