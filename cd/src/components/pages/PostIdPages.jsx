@@ -7,7 +7,6 @@ import Loader from "../UI/Loader/Loader";
 
 export const PostIdPages = () => {
     const params = useParams();
-    console.log(params);
     
     const [post, setPost] = useState({});
     const [comments, setComments] = useState([]);
@@ -37,10 +36,12 @@ return (
         {isComLoading
             ? <Loader/>
             : <div>
-                {comments.map(com =>
-                    <div style={{marginTop: 15}}>
-                        <h5>{com.email}</h5>
-                        <div>{com.body }</div>
+                {comments.map(comm =>
+                    <div
+                        key={comm.id}
+                        style={{ marginTop: 15 }}>
+                        <h5>{comm.email}</h5>
+                        <div>{comm.body }</div>
                     </div>
                  )}
             </div>

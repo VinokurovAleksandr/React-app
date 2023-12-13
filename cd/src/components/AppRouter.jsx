@@ -7,11 +7,16 @@ import PostIdPages from './pages/PostIdPages';
 import { privateRoutes,publicRoutes } from '../router';
 import Login from './pages/Login';
 import { AuthContext } from '../context';
+import Loader from './UI/Loader/Loader';
 
 export const AppRouter = () => {
     // const isAuth = true;
 
-    const {isAuth } = useContext(AuthContext)
+    const {isAuth, isLoading } = useContext(AuthContext)
+
+    if (isLoading) {
+        return <Loader/>
+    }
     
     return (
         isAuth 
@@ -23,6 +28,7 @@ export const AppRouter = () => {
                 element={route.element}
                 path={route.path}
                 exact={route.exact}
+                key={route.path}
             />
         )}
         <Route path='*' element={<Posts/>}/>
@@ -34,6 +40,7 @@ export const AppRouter = () => {
                 element={route.element}
                 path={route.path}
                 exact={route.exact}
+                key={route.path}
             />
         )}
         {/* <Route path='/' element={ <About/>}/>

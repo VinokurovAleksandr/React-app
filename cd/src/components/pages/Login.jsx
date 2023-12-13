@@ -6,10 +6,13 @@ import { AuthContext } from '../../context';
 
 export const Login = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
+    
     const login = event => {
         event.preventDefault();
         setIsAuth(true);
-    }
+        localStorage.setItem('auth', 'true')
+    };
+
 return (
 <div>
         <h2>Login</h2>
